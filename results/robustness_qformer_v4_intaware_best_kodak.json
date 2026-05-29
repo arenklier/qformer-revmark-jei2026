@@ -1,0 +1,71 @@
+{
+  "checkpoint": "checkpoints/qformer_v4_intaware_best.pt",
+  "dataset": "kodak",
+  "n_payload": 5000,
+  "results": [
+    {
+      "attack": "JPEG Q=90",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 37.400933625786,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "JPEG Q=70",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 33.59858883565734,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "JPEG Q=50",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 32.00648408446897,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "Gauss sigma=2",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 42.07015562909965,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "Gauss sigma=5",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 34.19802670169826,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "Gauss sigma=10",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 28.209979758838113,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "crop 5%",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 14.306931249660453,
+      "n_imgs": 24,
+      "n_crashed": 24
+    },
+    {
+      "attack": "crop 10%",
+      "n_target_bits": 5000,
+      "ber": 0.0,
+      "attack_psnr_mean": 11.38076946421598,
+      "n_imgs": 24,
+      "n_crashed": 24
+    }
+  ]
+}

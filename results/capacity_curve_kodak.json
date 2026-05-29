@@ -1,0 +1,61 @@
+{
+  "checkpoint": "checkpoints/scalar_v1_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "results": [
+    {
+      "T": 0,
+      "psnr_mean": 51.20043684199743,
+      "capacity_bpp_mean": 0.1960124969482422,
+      "total_bits": 308301,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.5129969120025635
+    },
+    {
+      "T": 1,
+      "psnr_mean": 44.64016852310174,
+      "capacity_bpp_mean": 0.5326944986979166,
+      "total_bits": 837856,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.304396390914917
+    },
+    {
+      "T": 2,
+      "psnr_mean": 40.89318535375305,
+      "capacity_bpp_mean": 0.8339754740397135,
+      "total_bits": 1311730,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.2983365058898926
+    },
+    {
+      "T": 3,
+      "psnr_mean": 38.438630076623085,
+      "capacity_bpp_mean": 1.0918280283610027,
+      "total_bits": 1717297,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.2984805107116699
+    },
+    {
+      "T": 5,
+      "psnr_mean": 35.28895528051023,
+      "capacity_bpp_mean": 1.4900779724121094,
+      "total_bits": 2343690,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.29825520515441895
+    },
+    {
+      "T": 8,
+      "psnr_mean": 32.49887190486441,
+      "capacity_bpp_mean": 1.8885949452718098,
+      "total_bits": 2970503,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.29644322395324707
+    }
+  ]
+}

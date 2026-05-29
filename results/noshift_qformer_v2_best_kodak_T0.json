@@ -1,0 +1,53 @@
+{
+  "checkpoint": "checkpoints/qformer_v2_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "T_select": 0,
+  "results": [
+    {
+      "n_target": 1000,
+      "T_select": 0,
+      "psnr_mean": 74.07472519074918,
+      "embedded_mean": 1000.0,
+      "side_bytes_mean": 2822.0416666666665,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 5000,
+      "T_select": 0,
+      "psnr_mean": 67.25288605081174,
+      "embedded_mean": 4835.125,
+      "side_bytes_mean": 2822.25,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 10000,
+      "T_select": 0,
+      "psnr_mean": 65.64074901084182,
+      "embedded_mean": 7359.791666666667,
+      "side_bytes_mean": 2823.3333333333335,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 20000,
+      "T_select": 0,
+      "psnr_mean": 65.46808321370979,
+      "embedded_mean": 7863.791666666667,
+      "side_bytes_mean": 2823.75,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 40000,
+      "T_select": 0,
+      "psnr_mean": 65.34678991793494,
+      "embedded_mean": 8386.0,
+      "side_bytes_mean": 2824.2916666666665,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    }
+  ]
+}

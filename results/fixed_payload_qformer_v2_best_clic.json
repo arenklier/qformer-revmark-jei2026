@@ -1,0 +1,44 @@
+{
+  "checkpoint": "checkpoints/qformer_v2_best.pt",
+  "dataset": "clic",
+  "image_size": 512,
+  "pixels_per_image": 786432,
+  "results": [
+    {
+      "n_target": 5000,
+      "psnr_mean": 52.223873335862876,
+      "capacity_mean": 14527.90243902439,
+      "n_imgs": 41,
+      "T_min": 0,
+      "T_max": 0,
+      "T_med": 0
+    },
+    {
+      "n_target": 10000,
+      "psnr_mean": 52.04458475981132,
+      "capacity_mean": 14975.463414634147,
+      "n_imgs": 41,
+      "T_min": 0,
+      "T_max": 1,
+      "T_med": 0
+    },
+    {
+      "n_target": 20000,
+      "psnr_mean": 45.435209067680375,
+      "capacity_mean": 40405.09756097561,
+      "n_imgs": 41,
+      "T_min": 0,
+      "T_max": 1,
+      "T_med": 1
+    },
+    {
+      "n_target": 40000,
+      "psnr_mean": 42.57859681518106,
+      "capacity_mean": 56058.95121951219,
+      "n_imgs": 41,
+      "T_min": 0,
+      "T_max": 2,
+      "T_med": 2
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "checkpoint": "checkpoints/qformer_v4_intaware_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "T_select": 0,
+  "results": [
+    {
+      "n_target": 1000,
+      "T_select": 0,
+      "psnr_mean": 74.10649386963227,
+      "ssim_mean": 0.9999780257542928,
+      "embedded_mean": 1000.0,
+      "side_bytes_mean": 3809.2916666666665,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 5000,
+      "T_select": 0,
+      "psnr_mean": 67.18441223747895,
+      "ssim_mean": 0.9998889192938805,
+      "embedded_mean": 4926.5,
+      "side_bytes_mean": 3808.875,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 10000,
+      "T_select": 0,
+      "psnr_mean": 64.99105491933314,
+      "ssim_mean": 0.9998034909367561,
+      "embedded_mean": 8400.208333333334,
+      "side_bytes_mean": 3808.75,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    }
+  ]
+}

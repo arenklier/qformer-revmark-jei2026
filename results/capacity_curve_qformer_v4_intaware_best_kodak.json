@@ -1,0 +1,67 @@
+{
+  "checkpoint": "checkpoints/qformer_v4_intaware_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "results": [
+    {
+      "T": 0,
+      "psnr_mean": 51.17771122041045,
+      "ssim_mean": 0.9986750309665998,
+      "capacity_bpp_mean": 0.17346890767415366,
+      "total_bits": 272843,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.9362595081329346
+    },
+    {
+      "T": 1,
+      "psnr_mean": 44.5736625637415,
+      "ssim_mean": 0.9906636824210485,
+      "capacity_bpp_mean": 0.4693291982014974,
+      "total_bits": 738191,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6493613719940186
+    },
+    {
+      "T": 2,
+      "psnr_mean": 40.77852790921187,
+      "ssim_mean": 0.9784366637468338,
+      "capacity_bpp_mean": 0.7407156626383463,
+      "total_bits": 1165045,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6490540504455566
+    },
+    {
+      "T": 3,
+      "psnr_mean": 38.27977439726336,
+      "ssim_mean": 0.9647532204786936,
+      "capacity_bpp_mean": 0.9805730183919271,
+      "total_bits": 1542308,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6495358943939209
+    },
+    {
+      "T": 5,
+      "psnr_mean": 35.0520166273731,
+      "ssim_mean": 0.9383023530244827,
+      "capacity_bpp_mean": 1.3634573618570964,
+      "total_bits": 2144533,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6508867740631104
+    },
+    {
+      "T": 8,
+      "psnr_mean": 32.167942647496915,
+      "ssim_mean": 0.9060869341095289,
+      "capacity_bpp_mean": 1.7575117746988933,
+      "total_bits": 2764327,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6535508632659912
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "checkpoint": "checkpoints/qformer_v2_best.pt",
+  "dataset": "clic",
+  "image_size": 256,
+  "results": [
+    {
+      "T": 0,
+      "psnr_mean": 51.27836382153412,
+      "capacity_bpp_mean": 0.11754105730754573,
+      "total_bits": 315830,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.295072078704834
+    },
+    {
+      "T": 1,
+      "psnr_mean": 44.51551943184744,
+      "capacity_bpp_mean": 0.3437116669445503,
+      "total_bits": 923545,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.3080296516418457
+    },
+    {
+      "T": 2,
+      "psnr_mean": 40.603468841697236,
+      "capacity_bpp_mean": 0.5604832346846418,
+      "total_bits": 1506005,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.306682825088501
+    },
+    {
+      "T": 3,
+      "psnr_mean": 38.007927089933936,
+      "capacity_bpp_mean": 0.7638080876048018,
+      "total_bits": 2052334,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.3056581020355225
+    },
+    {
+      "T": 5,
+      "psnr_mean": 34.63514096695041,
+      "capacity_bpp_mean": 1.1274127494998094,
+      "total_bits": 3029331,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.318779230117798
+    },
+    {
+      "T": 8,
+      "psnr_mean": 31.626053850345265,
+      "capacity_bpp_mean": 1.5537682510003812,
+      "total_bits": 4174938,
+      "n_images": 41,
+      "n_bit_exact": 41,
+      "elapsed_sec": 2.301405906677246
+    }
+  ]
+}

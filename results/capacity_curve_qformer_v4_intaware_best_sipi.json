@@ -1,0 +1,52 @@
+{
+  "checkpoint": "checkpoints/qformer_v4_intaware_best.pt",
+  "dataset": "sipi",
+  "image_size": 256,
+  "results": [
+    {
+      "T": 0,
+      "psnr_mean": 51.33966088641024,
+      "capacity_bpp_mean": 0.17805262974330358,
+      "total_bits": 163364,
+      "n_images": 14,
+      "n_bit_exact": 14,
+      "elapsed_sec": 0.7136876583099365
+    },
+    {
+      "T": 1,
+      "psnr_mean": 44.70837966903248,
+      "capacity_bpp_mean": 0.5220696585518974,
+      "total_bits": 479001,
+      "n_images": 14,
+      "n_bit_exact": 14,
+      "elapsed_sec": 0.4186224937438965
+    },
+    {
+      "T": 2,
+      "psnr_mean": 40.936323032727834,
+      "capacity_bpp_mean": 0.8269631522042411,
+      "total_bits": 758742,
+      "n_images": 14,
+      "n_bit_exact": 14,
+      "elapsed_sec": 0.4240121841430664
+    },
+    {
+      "T": 3,
+      "psnr_mean": 38.47462606125291,
+      "capacity_bpp_mean": 1.085064479282924,
+      "total_bits": 995551,
+      "n_images": 14,
+      "n_bit_exact": 14,
+      "elapsed_sec": 0.41950345039367676
+    },
+    {
+      "T": 5,
+      "psnr_mean": 35.320916889246384,
+      "capacity_bpp_mean": 1.4718355451311385,
+      "total_bits": 1350415,
+      "n_images": 14,
+      "n_bit_exact": 14,
+      "elapsed_sec": 0.42182207107543945
+    }
+  ]
+}

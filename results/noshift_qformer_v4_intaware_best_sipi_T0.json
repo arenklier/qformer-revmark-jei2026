@@ -1,0 +1,38 @@
+{
+  "checkpoint": "checkpoints/qformer_v4_intaware_best.pt",
+  "dataset": "sipi",
+  "image_size": 256,
+  "T_select": 0,
+  "results": [
+    {
+      "n_target": 1000,
+      "T_select": 0,
+      "psnr_mean": 74.09838781069463,
+      "ssim_mean": 0.9999729224613735,
+      "embedded_mean": 1000.0,
+      "side_bytes_mean": 4299.142857142857,
+      "n_imgs": 14,
+      "n_bit_exact": 14
+    },
+    {
+      "n_target": 5000,
+      "T_select": 0,
+      "psnr_mean": 67.12855995265728,
+      "ssim_mean": 0.9998650508267539,
+      "embedded_mean": 4934.5,
+      "side_bytes_mean": 4297.785714285715,
+      "n_imgs": 14,
+      "n_bit_exact": 14
+    },
+    {
+      "n_target": 10000,
+      "T_select": 0,
+      "psnr_mean": 64.67112438485161,
+      "ssim_mean": 0.9997504566396985,
+      "embedded_mean": 8953.5,
+      "side_bytes_mean": 4296.214285714285,
+      "n_imgs": 14,
+      "n_bit_exact": 14
+    }
+  ]
+}

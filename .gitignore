@@ -1,0 +1,51 @@
+# =============================================================================
+# .gitignore for qformer-revmark anonymous review snapshot
+#
+# What IS tracked: src/ scripts/ tests/ checkpoints/ results/ docs at root
+# What is NOT tracked: paper/ (manuscript), data/ (large), logs/ (TB), .venv/
+# =============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Virtual env ---
+.venv/
+venv/
+env/
+
+# --- Data (too large to track) ---
+data/kodak/*
+data/sipi/*
+data/clic/*
+data/coco/*
+data/isic/*
+data/bows2/*
+!data/*/README.md
+!data/*/.gitkeep
+
+# --- Manuscript / paper / cover letter (NOT shipped in anonymous repo) ---
+paper/
+
+# --- Logs (not needed for reproduction) ---
+logs/
+!logs/.gitkeep
+
+# --- Misc ---
+.DS_Store
+*.log
+*.npy
+*.npz
+*.pkl
+.idea/
+.vscode/
+*.swp
+
+# NOTE: .pt / .pth / .json files ARE tracked under checkpoints/ and results/
+# for reviewer reproducibility (total ~75 MB, under GitHub limits).
