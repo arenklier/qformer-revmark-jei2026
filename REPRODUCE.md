@@ -42,13 +42,28 @@ python scripts/eval_capacity_curve.py --checkpoint checkpoints/qformer_v4_intawa
 
 Runtime: a few seconds. Repeat with `--checkpoint checkpoints/qformer_v2_best.pt` and `checkpoints/qformer_v3_best.pt` for the other columns. Pre-computed: `results/capacity_curve_*.json`.
 
-## Table 4. No-shift PEE at fixed payload targets (Kodak, RGB 256)
+## Table 4. Standard PEE versus no-shift at matched payloads
+
+```bash
+python scripts/measure_matched_payload.py
+```
+
+Runs canonical standard PEE and no-shift PEE at the same payloads on grayscale Kodak and reports PSNR and embedded counts for both. Confirms that standard-PEE distortion is payload-independent, so the like-for-like gap is 17.5 dB at 1000 bits. Runtime: about 25 minutes.
+
+Two supporting analyses of the side-channel cost:
+
+```bash
+python scripts/measure_net_payload.py      # net = payload - map entropy, and the crossover
+python scripts/probe_complexity_sort.py    # does complexity ordering reach the break-even fill?
+```
+
+## Table 5. No-shift PEE at fixed payload targets (Kodak, RGB 256)
 
 ```bash
 python scripts/eval_noshift.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --payloads 1000,5000,10000
 ```
 
-Runtime: about 1 minute per payload. The `embedded` field in the output JSON is the "Emb." column of Table 2, which differs from the target where the candidate set saturates. Pre-computed: `results/noshift_qformer_v5_heldout_best_kodak_T0.json`.
+Runtime: about 1 minute per payload. The `embedded` field in the output JSON is the "Emb." column of Table 5, which differs from the target where the candidate set saturates. Pre-computed: `results/noshift_qformer_v5_heldout_best_kodak_T0.json`.
 
 MS-SSIM and LPIPS for the same operating points come from:
 
@@ -58,7 +73,7 @@ python scripts/eval_full_metrics.py --checkpoint checkpoints/qformer_v5_heldout_
 
 Pre-computed: `results/fullmetrics_qformer_v5_heldout_best_kodak.json`.
 
-## Table 5. Comparison to prior art
+## Table 6. Comparison to prior art
 
 Grayscale 512x512 no-shift with the classical predictor, on Kodak, USC-SIPI, and Hu's four standard images:
 
@@ -88,11 +103,11 @@ python scripts/verify_revision_experiments.py
 
 This prints the 128/256/512/1024 sweep at a fixed 500-bit payload, the extended attack table, the map-free extraction audit, and the 20000/40000-bit colour 512 comparison. Runtime: about 20 minutes end to end.
 
-## Table 6. Feature-level comparison
+## Table 7. Feature-level comparison
 
 Qualitative table compiled from the cited papers. No script.
 
-## Table 7. Quaternion versus scalar attention
+## Table 8. Quaternion versus scalar attention
 
 ```bash
 python scripts/measure_quaternion_role.py
@@ -100,7 +115,7 @@ python scripts/measure_quaternion_role.py
 
 Compares three quaternion checkpoints (v2 at 50 epochs, v4 and v5 at 80) against the matched-parameter scalar Transformer, reporting mean squared prediction error, the `|e|=0` population, residual cross-channel mutual information, forward-pass latency, and peak memory. Runtime: about 5 minutes.
 
-## Table 8. Empirical cross-channel mutual information
+## Table 9. Empirical cross-channel mutual information
 
 ```bash
 python scripts/measure_mi_errors.py --checkpoint checkpoints/qformer_v2_best.pt --datasets kodak,sipi,clic,coco,isic --mi-bins 32
@@ -108,7 +123,7 @@ python scripts/measure_mi_errors.py --checkpoint checkpoints/qformer_v2_best.pt 
 
 Runtime: about 4 minutes, dominated by the COCO subset. Pre-computed: `results/mi_lemma_validation.json`.
 
-## Table 9. Five-dataset generalisation and CIEDE2000
+## Table 10. Five-dataset generalisation and CIEDE2000
 
 ```bash
 python scripts/verify_color_generalization.py
@@ -116,7 +131,7 @@ python scripts/verify_color_generalization.py
 
 Prints the CIEDE2000 values for the classical and v5 predictors on Kodak, then the five-dataset table at a fixed 5000-bit payload. Runtime: about 10 minutes.
 
-## Table 10. Fragility under attacks
+## Table 11. Fragility under attacks
 
 ```bash
 python scripts/eval_robustness.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --n-payload 5000
