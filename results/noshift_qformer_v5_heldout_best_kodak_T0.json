@@ -1,0 +1,38 @@
+{
+  "checkpoint": "checkpoints/qformer_v5_heldout_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "T_select": 0,
+  "results": [
+    {
+      "n_target": 1000,
+      "T_select": 0,
+      "psnr_mean": 74.05515850052102,
+      "ssim_mean": 0.999977578719457,
+      "embedded_mean": 1000.0,
+      "side_bytes_mean": 3794.75,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 5000,
+      "T_select": 0,
+      "psnr_mean": 67.17415896401346,
+      "ssim_mean": 0.9998880873123804,
+      "embedded_mean": 4919.375,
+      "side_bytes_mean": 3795.4166666666665,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    },
+    {
+      "n_target": 10000,
+      "T_select": 0,
+      "psnr_mean": 65.0257736732606,
+      "ssim_mean": 0.9998034263650576,
+      "embedded_mean": 8347.958333333334,
+      "side_bytes_mean": 3794.9583333333335,
+      "n_imgs": 24,
+      "n_bit_exact": 24
+    }
+  ]
+}

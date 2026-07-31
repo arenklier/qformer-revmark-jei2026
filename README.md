@@ -115,7 +115,7 @@ The reversibility test verifies that for every test image, predictor variant, an
 
 ## Project size
 
-Approximately 2 700 lines of tested Python, organised as:
+Approximately 5 000 lines of tested Python, organised as:
 - Training scripts and self-supervised loop
 - Evaluation harness for capacity, fixed-payload, and no-shift modes
 - Ablation configurations (predictor architecture, integer-aware loss, scalar baselines)

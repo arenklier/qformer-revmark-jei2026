@@ -1,0 +1,32 @@
+{
+  "hu_ckpt": "/home/ayhan/qformer-revmark/external/hu2021/CNN-Prediction-Based-Reversible-Data-Hiding/model_parameter/model_state.pth",
+  "dataset": "hu_std",
+  "image_size": 512,
+  "results": [
+    {
+      "n_payload": 10000,
+      "n_imgs": 4,
+      "n_bit_exact": 4,
+      "PSNR": {
+        "mean": 75.43361816037682,
+        "std": 2.3226100708050064,
+        "ci95": 2.276157869388906
+      },
+      "MS_SSIM": {
+        "mean": 0.9999995678663254,
+        "std": 4.335870910246212e-07,
+        "ci95": 4.249153492041288e-07
+      },
+      "LPIPS": {
+        "mean": 1.9864362172938854e-06,
+        "std": 5.258895378726759e-07,
+        "ci95": 5.153717471152224e-07
+      },
+      "embedded": {
+        "mean": 3185.25,
+        "std": 1697.9582592042716,
+        "ci95": 1663.9990940201862
+      }
+    }
+  ]
+}

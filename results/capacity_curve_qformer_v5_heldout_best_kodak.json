@@ -1,0 +1,57 @@
+{
+  "checkpoint": "checkpoints/qformer_v5_heldout_best.pt",
+  "dataset": "kodak",
+  "image_size": 256,
+  "results": [
+    {
+      "T": 0,
+      "psnr_mean": 51.21718258082191,
+      "ssim_mean": 0.9986857945720354,
+      "capacity_bpp_mean": 0.1737035115559896,
+      "total_bits": 273212,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.9329588413238525
+    },
+    {
+      "T": 1,
+      "psnr_mean": 44.59463364525797,
+      "ssim_mean": 0.990759772559007,
+      "capacity_bpp_mean": 0.4680805206298828,
+      "total_bits": 736227,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6457710266113281
+    },
+    {
+      "T": 2,
+      "psnr_mean": 40.790350825041955,
+      "ssim_mean": 0.9786781792839369,
+      "capacity_bpp_mean": 0.7383588155110677,
+      "total_bits": 1161338,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6442751884460449
+    },
+    {
+      "T": 3,
+      "psnr_mean": 38.28520470998783,
+      "ssim_mean": 0.9651392921805382,
+      "capacity_bpp_mean": 0.9767538706461588,
+      "total_bits": 1536301,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6414356231689453
+    },
+    {
+      "T": 5,
+      "psnr_mean": 35.05173347125565,
+      "ssim_mean": 0.9389711320400238,
+      "capacity_bpp_mean": 1.3574466705322266,
+      "total_bits": 2135079,
+      "n_images": 24,
+      "n_bit_exact": 24,
+      "elapsed_sec": 0.6417648792266846
+    }
+  ]
+}
