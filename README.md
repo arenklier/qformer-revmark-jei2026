@@ -1,15 +1,15 @@
 # QFormer-RevMark
 
-**No-Shift Prediction-Error Expansion for High-Fidelity Reversible Color Image Watermarking, a Predictor-Agnostic Framework with Cross-Channel Capacity Analysis**
+**No-Shift Prediction-Error Expansion for High-Fidelity Reversible Colour Image Watermarking, a Predictor-Agnostic Framework with Cross-Channel Capacity Analysis**
 
 > Anonymous review snapshot. Author and affiliation information is withheld during peer review.
 
 ## Overview
 
-This repository accompanies the manuscript and contains the full PyTorch implementation, trained checkpoints, and result tables for a predictor-agnostic reversible color-image watermarking framework. Three contributions are realised in code:
+This repository accompanies the manuscript and contains the full PyTorch implementation, trained checkpoints, and result tables for a predictor-agnostic reversible colour-image watermarking framework. Three contributions are realised in code:
 
 1. **No-shift PEE** — a variant of prediction-error expansion that externalises the embed/no-embed location encoding to a side-channel bitmap. Lifts marked-image PSNR from 51 dB to 74 dB at low payloads on Kodak, with bit-exact recovery preserved.
-2. **Cross-channel capacity bound (Proposition 1)** — a closed-form lower bound on the per-pixel embedding capacity that a cross-channel predictor enjoys over an independent three-channel predictor, validated empirically on five datasets (mutual information 0.13 to 0.73 bits/pixel).
+2. **Cross-channel floor reduction (Theorem 1)** — adding cross-channel context lowers the entropy-power floor on prediction-error variance by exactly `2^(-2 I(X_c; N_-c | N_c))`, for any host distribution and any predictor. The Gaussian linear-MMSE case, where the floor is attained, is the corollary. Checked empirically on Kodak (Spearman ρ = −0.891 over 72 image-channel pairs).
 3. **Two predictor instantiations** — a classical 4-neighbour rhombus filter and a quaternion self-attention network, occupying complementary corners of the PSNR-capacity Pareto front.
 
 ## Repository structure
@@ -50,7 +50,7 @@ The code automatically downloads or links the following datasets:
 
 | Dataset | Use | Source | Approx. size |
 |---|---|---|---|
-| Kodak (24 images) | Canonical color benchmark | http://r0k.us/graphics/kodak/ | 50 MB |
+| Kodak (24 images) | Canonical colour benchmark | http://r0k.us/graphics/kodak/ | 50 MB |
 | USC-SIPI Misc (14) | Classic test images | https://sipi.usc.edu/database/ | 100 MB |
 | CLIC-2020 validation (41) | High-resolution natural | https://www.compression.cc/ | 3 GB |
 | COCO val-2017 (1000 subset) | Diversity | https://cocodataset.org/ | 500 MB |
@@ -60,25 +60,23 @@ See `scripts/download_datasets.py` for download helpers. All images are centre-c
 
 ## Quick start
 
-Reproduce the headline 10 000-bit no-shift result on Kodak (around 60 seconds on an L40S):
+Reproduce the headline no-shift result on Kodak (around 60 seconds on an L40S):
 
 ```bash
-python scripts/eval_noshift.py \
-    --checkpoint checkpoints/qformer_v5_heldout_best.pt \
-    --dataset kodak \
-    --payload 10000 \
-    --output results/noshift_kodak_v5.json
+python scripts/eval_noshift.py --checkpoint checkpoints/qformer_v5_heldout_best.pt \
+    --dataset kodak --payloads 1000,5000,10000
 ```
 
-Reproduce the standard-PEE T-sweep capacity table (Table 1 in the paper):
+Reproduce the standard-PEE T-sweep capacity table (Table 3 in the paper):
 
 ```bash
-python scripts/eval_capacity_curve.py \
-    --checkpoint checkpoints/qformer_v4_intaware_best.pt \
-    --dataset kodak \
-    --t-values 0,1,2,3,5 \
-    --output results/capacity_curve_kodak_v4.json
+python scripts/eval_capacity_curve.py --checkpoint checkpoints/qformer_v4_intaware_best.pt \
+    --dataset kodak
 ```
+
+Each script writes its JSON into `results/` and prints a summary. The `results/`
+directory already ships the exact files behind every number in the paper, so the
+tables can be checked without rerunning anything.
 
 A complete table-by-table guide is in [REPRODUCE.md](REPRODUCE.md).
 
@@ -135,7 +133,7 @@ The reversibility test verifies that for every test image, predictor variant, an
 
 ## Project size
 
-Approximately 5 000 lines of tested Python, organised as:
+Approximately 5 500 lines of tested Python, organised as:
 - Training scripts and self-supervised loop
 - Evaluation harness for capacity, fixed-payload, and no-shift modes
 - Ablation configurations (predictor architecture, integer-aware loss, scalar baselines)
