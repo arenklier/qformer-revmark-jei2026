@@ -93,16 +93,36 @@ A complete table-by-table guide is in [REPRODUCE.md](REPRODUCE.md).
 | `scalar_v1_best.pt` | Scalar Transformer, matched feature dim | 50 | 2.97 M | Ablation baseline |
 | `scalar_v2_matchparams_best.pt` | Scalar Transformer, matched param count | 50 | 948 k | Ablation baseline |
 
-## Headline numbers (Kodak 256×256 RGB, 10 000-bit no-shift payload)
+## Headline numbers (Kodak 256×256 RGB, 10 000-bit no-shift target)
 
-| Method | PSNR (dB) | MS-SSIM | LPIPS | Bit-exact |
-|---|---|---|---|---|
-| QFormer-v5 (held-out predictor) | **65.03 ± 0.53** | **0.99998** | **<10⁻⁵** | 24/24 |
-| QFormer-v4 (integer-aware) | 64.99 | 0.9998 | <10⁻⁵ | 24/24 |
-| QFormer-v3 (larger) | 64.88 | 0.9998 | <10⁻⁵ | 24/24 |
-| Classical 4-neighbour | 64.09 | 0.9998 | <10⁻⁵ | 24/24 |
+The deep predictors saturate below the 10 000-bit target because their tighter error
+distribution leaves fewer `|e|=0` candidates, so the target and the number of bits
+actually embedded differ. Both are reported.
 
-For grayscale 512×512 comparison against Hu 2021 (CNNP) and Qiu 2024 (ICNNP), see Table 3 in the paper and `scripts/eval_noshift.py --grayscale --size 512`.
+| Method | Embedded | PSNR (dB) | MS-SSIM | LPIPS | Bit-exact |
+|---|---|---|---|---|---|
+| QFormer-v5 (held-out predictor) | 8 348 | **65.03 ± 0.53** | **0.99998** | **<10⁻⁵** | 24/24 |
+| QFormer-v4 (integer-aware) | 8 400 | 64.99 | 0.9998 | <10⁻⁵ | 24/24 |
+| QFormer-v3 (larger) | 8 782 | 64.76 | 0.9998 | <10⁻⁵ | 24/24 |
+| Classical 4-neighbour | 10 000 | 64.09 | 0.9998 | <10⁻⁵ | 24/24 |
+
+For the grayscale 512×512 comparison against Hu 2021 (CNNP) and Qiu 2024 (ICNNP), and
+for the colour 512×512 rows matched to He and Cai 2024, see Table 5 in the paper and
+`scripts/eval_grayscale.py` / `scripts/verify_revision_experiments.py`.
+
+## Revision findings worth knowing
+
+- **Theorem 1** states the cross-channel gain over entropy-power floors, so it holds for
+  any host distribution and any predictor, nonlinear ones included. The Gaussian
+  linear-MMSE identity is the corollary. See `scripts/measure_attainment.py` for the
+  empirical check (Spearman ρ = −0.891 over 72 image-channel pairs).
+- **Quaternion attention is a negative result here.** Trained long enough it matches or
+  beats a matched-parameter scalar Transformer on accuracy, but its residuals retain
+  *more* cross-channel structure at every budget, and it is ~5× slower.
+  See `scripts/measure_quaternion_role.py`.
+- **The location map cannot be reconstructed from the marked image** (map-free recovery
+  sits at chance, 0.499). Under partial corruption a plain positional map cascades; a
+  256-flag block-synchronised map bounds the damage. See `scripts/measure_map_corruption.py`.
 
 ## Tests
 

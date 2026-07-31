@@ -12,7 +12,29 @@ source .venv/bin/activate
 python scripts/download_datasets.py --all     # or --kodak --sipi --clic --coco --isic
 ```
 
-## Table 1. Standard PEE, PSNR versus capacity (Kodak, RGB 256)
+## Table 1. Location-map corruption, plain versus block-synchronised
+
+```bash
+python scripts/measure_map_corruption.py
+```
+
+Embeds a 2000-bit payload on 24 Kodak images, flips map bits at rates 0 to 1e-2 with three draws each, and extracts with both the plain positional map and a 256-flag block-synchronised map. Reports payload bit-match and refusal counts. Runtime: about 25 minutes.
+
+## Table 2. Cross-channel gain and the entropy-power floor
+
+```bash
+python scripts/measure_attainment.py
+```
+
+Fits linear MMSE predictors on Kodak with and without cross-channel context, estimates the conditional mutual information with a Gaussian-copula estimator, and reports the achieved variance ratio against the floor ratio of Theorem 1, plus the rank correlation over all 72 image-channel pairs. Runtime: about 3 minutes.
+
+The distribution-free algebra behind Theorem 1 can be checked independently with:
+
+```bash
+python scripts/verify_entropy_power.py
+```
+
+## Table 3. Standard PEE, PSNR versus capacity (Kodak, RGB 256)
 
 ```bash
 python scripts/eval_capacity_curve.py --checkpoint checkpoints/qformer_v4_intaware_best.pt --dataset kodak
@@ -20,7 +42,7 @@ python scripts/eval_capacity_curve.py --checkpoint checkpoints/qformer_v4_intawa
 
 Runtime: a few seconds. Repeat with `--checkpoint checkpoints/qformer_v2_best.pt` and `checkpoints/qformer_v3_best.pt` for the other columns. Pre-computed: `results/capacity_curve_*.json`.
 
-## Table 2. No-shift PEE at fixed payload targets (Kodak, RGB 256)
+## Table 4. No-shift PEE at fixed payload targets (Kodak, RGB 256)
 
 ```bash
 python scripts/eval_noshift.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --payloads 1000,5000,10000
@@ -36,7 +58,7 @@ python scripts/eval_full_metrics.py --checkpoint checkpoints/qformer_v5_heldout_
 
 Pre-computed: `results/fullmetrics_qformer_v5_heldout_best_kodak.json`.
 
-## Table 3. Comparison to prior art
+## Table 5. Comparison to prior art
 
 Grayscale 512x512 no-shift with the classical predictor, on Kodak, USC-SIPI, and Hu's four standard images:
 
@@ -66,11 +88,19 @@ python scripts/verify_revision_experiments.py
 
 This prints the 128/256/512/1024 sweep at a fixed 500-bit payload, the extended attack table, the map-free extraction audit, and the 20000/40000-bit colour 512 comparison. Runtime: about 20 minutes end to end.
 
-## Table 4. Feature-level comparison
+## Table 6. Feature-level comparison
 
 Qualitative table compiled from the cited papers. No script.
 
-## Table 5. Empirical cross-channel mutual information
+## Table 7. Quaternion versus scalar attention
+
+```bash
+python scripts/measure_quaternion_role.py
+```
+
+Compares three quaternion checkpoints (v2 at 50 epochs, v4 and v5 at 80) against the matched-parameter scalar Transformer, reporting mean squared prediction error, the `|e|=0` population, residual cross-channel mutual information, forward-pass latency, and peak memory. Runtime: about 5 minutes.
+
+## Table 8. Empirical cross-channel mutual information
 
 ```bash
 python scripts/measure_mi_errors.py --checkpoint checkpoints/qformer_v2_best.pt --datasets kodak,sipi,clic,coco,isic --mi-bins 32
@@ -78,7 +108,7 @@ python scripts/measure_mi_errors.py --checkpoint checkpoints/qformer_v2_best.pt 
 
 Runtime: about 4 minutes, dominated by the COCO subset. Pre-computed: `results/mi_lemma_validation.json`.
 
-## Table 6. Five-dataset generalisation and CIEDE2000
+## Table 9. Five-dataset generalisation and CIEDE2000
 
 ```bash
 python scripts/verify_color_generalization.py
@@ -86,7 +116,7 @@ python scripts/verify_color_generalization.py
 
 Prints the CIEDE2000 values for the classical and v5 predictors on Kodak, then the five-dataset table at a fixed 5000-bit payload. Runtime: about 10 minutes.
 
-## Table 7. Fragility under attacks
+## Table 10. Fragility under attacks
 
 ```bash
 python scripts/eval_robustness.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --n-payload 5000
@@ -100,7 +130,7 @@ Runtime: about 3 minutes. The impulse-noise, median-filter, and sigma=1 rows add
 python scripts/plot_3method_pareto.py
 ```
 
-Requires the Table 1 and Table 2 JSON files to be present in `results/`. Output: `results/fig_pareto.pdf`.
+Requires the Table 3 and Table 4 JSON files to be present in `results/`. Output: `results/fig_pareto.pdf`.
 
 ## Figure 3. Q-Q plots of prediction errors
 
