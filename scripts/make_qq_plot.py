@@ -95,15 +95,16 @@ def main():
         lo, hi = min(theo.min(), emp.min()), max(theo.max(), emp.max())
         ax.plot([lo, hi], [lo, hi], "k--", linewidth=1, alpha=0.7)
         # Shaded |e|<=8 region
-        ax.axvspan(-8, 8, color="yellow", alpha=0.15, zorder=0, label=r"PEE-relevant $|e|\!\leq\!8$")
+        ax.axvspan(-8, 8, facecolor="0.88", edgecolor="0.55", linewidth=0.5, zorder=0, label=r"PEE-relevant $|e|\!\leq\!8$")
         ax.set_title(f"{ch}  (n={n:,}, $\\mu$={mu:.2f}, $\\sigma$={sd:.2f})", fontsize=10)
         ax.set_xlabel(r"Theoretical Gaussian quantiles")
         ax.set_ylabel("Empirical quantiles")
-        ax.grid(True, alpha=0.3, linewidth=0.4)
+        ax.grid(False)
+        ax.set_facecolor("white")
         if ax is axes[0]:
-            ax.legend(loc="upper left", fontsize=8)
+            ax.legend(loc="upper left", fontsize=9)
 
-    fig.suptitle(f"Q-Q plot: prediction errors vs.\\ Gaussian  ({args.dataset.upper()}, QFormer-v5)", fontsize=12)
+    fig.suptitle(f"Q-Q plot: prediction errors vs. Gaussian  ({args.dataset.upper()}, QFormer-v5)", fontsize=12)
     fig.tight_layout()
     out_path = ROOT / "paper" / "fig_qq"
     out_path.parent.mkdir(parents=True, exist_ok=True)

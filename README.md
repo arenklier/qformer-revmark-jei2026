@@ -104,8 +104,8 @@ actually embedded differ. Both are reported.
 | QFormer-v3 (larger) | 8 782 | 64.76 | 0.9998 | <10⁻⁵ | 24/24 |
 | Classical 4-neighbour | 10 000 | 64.09 | 0.9998 | <10⁻⁵ | 24/24 |
 
-For the grayscale 512×512 comparison against Hu 2021 (CNNP) and Qiu 2024 (ICNNP), and
-for the colour 512×512 rows matched to He and Cai 2024, see Table 5 in the paper and
+For the grayscale 512×512 comparison against Hu 2021 (CNNP) and Qiu 2025 (ICNNP), and
+for the colour 512×512 rows matched to He and Cai 2024, see Table 7 in the paper and
 `scripts/eval_grayscale.py` / `scripts/verify_revision_experiments.py`.
 
 ## Revision findings worth knowing

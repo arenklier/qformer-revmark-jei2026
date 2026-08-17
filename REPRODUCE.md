@@ -28,6 +28,14 @@ python scripts/measure_attainment.py
 
 Fits linear MMSE predictors on Kodak with and without cross-channel context, estimates the conditional mutual information with a Gaussian-copula estimator, and reports the achieved variance ratio against the floor ratio of Theorem 1, plus the rank correlation over all 72 image-channel pairs. Runtime: about 3 minutes.
 
+Per-image records, plus the clustered rank tests that treat the 24 images rather than the 72 image-channel pairs as the sampling unit:
+
+```bash
+python scripts/attainment_json.py
+```
+
+Pre-computed: `results/attainment_kodak.json`. Note that every column of Table 2 is a per-image mean, so the achieved-ratio column is the mean of per-image ratios and does not equal the quotient of the two mean-variance columns, and the floor column is the mean of per-image `2^(-2I)` rather than `2^(-2*mean I)`. Both gaps are Jensen's inequality and the per-image identity is exact.
+
 The distribution-free algebra behind Theorem 1 can be checked independently with:
 
 ```bash
@@ -42,7 +50,15 @@ python scripts/eval_capacity_curve.py --checkpoint checkpoints/qformer_v4_intawa
 
 Runtime: a few seconds. Repeat with `--checkpoint checkpoints/qformer_v2_best.pt` and `checkpoints/qformer_v3_best.pt` for the other columns. Pre-computed: `results/capacity_curve_*.json`.
 
-## Table 4. Standard PEE versus no-shift at matched payloads
+## Table 4. Complexity-ordering probe
+
+```bash
+python scripts/probe_complexity_sort.py
+```
+
+Sorts the T_sel=0 candidates of each Kodak image by local complexity, keeps only the leading k, and reports the resulting fill factor, map size, payload, and net payload. Shows that concentrating the map raises the fill from 16.4 percent to 43.4 percent but never reaches the 77.3 percent break-even at which Hb(p) drops below p. Runtime: about 2 minutes.
+
+## Table 5. Standard PEE versus no-shift at matched payloads
 
 ```bash
 python scripts/measure_matched_payload.py
@@ -57,7 +73,7 @@ python scripts/measure_net_payload.py      # net = payload - map entropy, and th
 python scripts/probe_complexity_sort.py    # does complexity ordering reach the break-even fill?
 ```
 
-## Table 5. No-shift PEE at fixed payload targets (Kodak, RGB 256)
+## Table 6. No-shift PEE at fixed payload targets (Kodak, RGB 256)
 
 ```bash
 python scripts/eval_noshift.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --payloads 1000,5000,10000
@@ -73,7 +89,7 @@ python scripts/eval_full_metrics.py --checkpoint checkpoints/qformer_v5_heldout_
 
 Pre-computed: `results/fullmetrics_qformer_v5_heldout_best_kodak.json`.
 
-## Table 6. Comparison to prior art
+## Table 7. Comparison to prior art
 
 Grayscale 512x512 no-shift with the classical predictor, on Kodak, USC-SIPI, and Hu's four standard images:
 
@@ -84,6 +100,16 @@ python scripts/eval_grayscale.py --dataset hu_std  --image-size 512 --payloads 1
 ```
 
 Pre-computed: `results/grayscale512_classical_noshift_{kodak,sipi,hu_std}.json`.
+
+Colour 512x512 at He and Cai's payloads, which produce the 67.09 and 64.11 dB rows:
+
+```bash
+python scripts/verify_revision_experiments.py
+```
+
+Pre-computed: `results/rgb512_hecai_comparison_kodak.json`.
+
+One caveat on the Hu-CNNP rows. Hu's wrapper replicates each grayscale image across three channels and embeds into all of them, so its three-channel totals (3963 on Kodak, 3969 on USC-SIPI) correspond to about 1321 and 1323 bits per channel. Table 7 quotes those rows per channel so that they sit on the same basis as the single-channel classical rows.
 
 Hu 2021's pretrained CNNP predictor plugged into our no-shift pipeline:
 
@@ -103,27 +129,37 @@ python scripts/verify_revision_experiments.py
 
 This prints the 128/256/512/1024 sweep at a fixed 500-bit payload, the extended attack table, the map-free extraction audit, and the 20000/40000-bit colour 512 comparison. Runtime: about 20 minutes end to end.
 
-## Table 7. Feature-level comparison
+## Table 8. Feature-level comparison
 
 Qualitative table compiled from the cited papers. No script.
 
-## Table 8. Quaternion versus scalar attention
+## Table 9. Resolution sweep with side-channel cost
 
 ```bash
-python scripts/measure_quaternion_role.py
+python scripts/resolution_side.py
 ```
 
-Compares three quaternion checkpoints (v2 at 50 epochs, v4 and v5 at 80) against the matched-parameter scalar Transformer, reporting mean squared prediction error, the `|e|=0` population, residual cross-channel mutual information, forward-pass latency, and peak memory. Runtime: about 5 minutes.
+Runs the classical no-shift predictor at 128, 256, 512, and 1024 on grayscale Kodak at a fixed 500-bit payload, and reports PSNR together with the raw map, fill factor, entropy-coded map, and net payload. The fixed payload avoids confounding resolution with candidate saturation, since a 10000-bit target does not fit at 128. Pre-computed: `results/resolution_side.json`. Runtime: about 12 minutes.
 
-## Table 9. Empirical cross-channel mutual information
+## Table 10. Quaternion versus scalar attention
+
+```bash
+python scripts/quatrole_final.py
+```
+
+Compares three quaternion checkpoints (v2 at 50 epochs, v4 and v5 at 80) against the matched-parameter scalar Transformer at **both** 50 and 80 epochs, so every quaternion variant faces an equally trained opponent. Reports mean squared prediction error, the `|e|=0` population, residual cross-channel mutual information, and forward-pass latency.
+
+Two details make the numbers comparable across tables. The mutual information uses the same estimator and the same Cross-plus-Dot sample construction as Table 11, so the shared QFormer-v2 entry reads 0.677 in both. The `mean e2` column is the per-sample mean squared error pooled over the three channels, not a sum. Requires `checkpoints/scalar_v3_80ep_best.pt`; see the retraining section if it is absent. Pre-computed: `results/quatrole_final_kodak.json`. Runtime: about 5 minutes.
+
+## Table 11. Empirical cross-channel mutual information
 
 ```bash
 python scripts/measure_mi_errors.py --checkpoint checkpoints/qformer_v2_best.pt --datasets kodak,sipi,clic,coco,isic --mi-bins 32
 ```
 
-Runtime: about 4 minutes, dominated by the COCO subset. Pre-computed: `results/mi_lemma_validation.json`.
+The checkpoint matters. This table is measured on QFormer-v2, and running the same script with another checkpoint overwrites `results/mi_lemma_validation.json` with different numbers. Runtime: about 4 minutes, dominated by the COCO subset. Pre-computed: `results/mi_lemma_validation.json`.
 
-## Table 10. Five-dataset generalisation and CIEDE2000
+## Table 12. Five-dataset generalisation and CIEDE2000
 
 ```bash
 python scripts/verify_color_generalization.py
@@ -131,7 +167,15 @@ python scripts/verify_color_generalization.py
 
 Prints the CIEDE2000 values for the classical and v5 predictors on Kodak, then the five-dataset table at a fixed 5000-bit payload. Runtime: about 10 minutes.
 
-## Table 11. Fragility under attacks
+## Table 13. Tamper sensitivity
+
+```bash
+python scripts/tamper_sensitivity.py
+```
+
+Embeds a 5000-bit payload on grayscale Kodak at 256, perturbs k randomly chosen pixels by plus or minus one for k from 1 to 1024, and classifies each outcome as refused, clean, or silently corrupted. Locates the detection boundary that the 0/24 attack table leaves open. Pre-computed: `results/tamper_sensitivity.json`. Runtime: about 20 minutes.
+
+## Table 14. Fragility under attacks
 
 ```bash
 python scripts/eval_robustness.py --checkpoint checkpoints/qformer_v5_heldout_best.pt --dataset kodak --n-payload 5000
@@ -188,6 +232,14 @@ python -m src.training.train --d-quat 48 --depth 6 --epochs 80 --save-name qform
 # v5 (held out, Kodak excluded from the training corpus): 80 epochs, about 5 minutes
 python -m src.training.train --d-quat 48 --depth 6 --epochs 80 --save-name qformer_v5_heldout
 ```
+
+```bash
+# scalar baselines for Table 10, matched parameter count (947,691)
+python -m src.training.train_scalar --d-model 104 --depth 6 --epochs 50 --save-name scalar_v2_matchparams
+python -m src.training.train_scalar --d-model 104 --depth 6 --epochs 80 --save-name scalar_v3_80ep
+```
+
+The 80-epoch scalar run is required for Table 10. Comparing an 80-epoch quaternion model against a 50-epoch scalar baseline inverts the accuracy conclusion, which is why both budgets are reported.
 
 Run `python -m src.training.train --help` for the full flag list. All training uses `torch.manual_seed(0)` and `numpy.random.seed(0)`. DataLoader shuffling is seeded but remains stochastic; set `torch.backends.cudnn.deterministic = True` if exact reproduction of the location-map cardinality is required.
 

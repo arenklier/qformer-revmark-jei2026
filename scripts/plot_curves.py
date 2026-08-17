@@ -46,7 +46,7 @@ def main():
                             xytext=(5, 4), fontsize=7, alpha=0.7)
 
     # Reference horizontal lines for JEI-style PSNR floors
-    for psnr_floor, lab in [(48, "JEI floor (48 dB)"), (50, "Robust WM (50 dB)"), (55, "Reversible target (55 dB)")]:
+    for psnr_floor, lab in []:
         ax.axhline(y=psnr_floor, linestyle="--", linewidth=0.8, alpha=0.5, color="gray")
         ax.text(ax.get_xlim()[1] * 0.98 if ax.get_xlim()[1] > 0 else 1.0,
                 psnr_floor + 0.3, lab, ha="right", va="bottom", fontsize=7, alpha=0.6, color="gray")

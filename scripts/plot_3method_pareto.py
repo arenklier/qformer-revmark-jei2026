@@ -64,22 +64,18 @@ def main():
                 color="tab:purple", linewidth=2.5, markersize=14,
                 linestyle="--", label="QFormer-v4 no-shift PEE  (this work)")
 
-    # Reference horizontal lines
-    for psnr_floor, lab in [(48, "JEI floor 48 dB"), (55, "high-fidelity 55 dB")]:
-        ax.axhline(y=psnr_floor, linestyle=":", linewidth=0.7, alpha=0.5, color="gray")
-        ax.text(2.3, psnr_floor + 0.4, lab, fontsize=7, alpha=0.6, color="gray")
-
     # T annotations
     for x, y, T in v4:
         if T in (0, 1, 5):
             ax.annotate(f"T={T}", (x, y), textcoords="offset points",
-                        xytext=(6, 4), fontsize=7, alpha=0.7, color="tab:red")
+                        xytext=(6, 4), fontsize=10, alpha=0.7, color="tab:red")
 
     ax.set_xlabel("Embedding capacity (bpp)")
     ax.set_ylabel("PSNR (dB)  --  watermarked vs original")
     ax.set_title("QFormer-RevMark vs classical baseline (Kodak, 24 images)")
-    ax.grid(True, alpha=0.3, linewidth=0.5)
-    ax.legend(loc="upper right", fontsize=9, framealpha=0.95)
+    ax.grid(False)
+    ax.set_facecolor("white")
+    ax.legend(loc="upper right", fontsize=11, framealpha=0.95)
     ax.set_xlim(left=0, right=2.5)
     ax.set_ylim(bottom=30, top=78)
     fig.tight_layout()

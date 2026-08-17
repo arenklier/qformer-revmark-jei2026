@@ -1,0 +1,30 @@
+{
+ "dataset": "kodak",
+ "image_size": 512,
+ "mode": "RGB",
+ "method": "Classical 4-neigh. + no-shift PEE, colour 512x512",
+ "reference": {
+  "He and Cai 2024 (Mathematics)": {
+   "20000": 63.61,
+   "40000": 60.53
+  }
+ },
+ "results": [
+  {
+   "n_payload": 20000,
+   "psnr_mean": 67.08657343801684,
+   "ci95": 0.01198059333206038,
+   "embedded_mean": 19998.0,
+   "n_imgs": 24,
+   "n_bit_exact": 24
+  },
+  {
+   "n_payload": 40000,
+   "psnr_mean": 64.10522119688709,
+   "ci95": 0.03819273323444625,
+   "embedded_mean": 39834.25,
+   "n_imgs": 24,
+   "n_bit_exact": 24
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "1": {
+  "refused": 7,
+  "clean": 16,
+  "silent": 1,
+  "detect": 0.3333333333333333
+ },
+ "2": {
+  "refused": 13,
+  "clean": 8,
+  "silent": 3,
+  "detect": 0.6666666666666666
+ },
+ "4": {
+  "refused": 15,
+  "clean": 7,
+  "silent": 2,
+  "detect": 0.7083333333333334
+ },
+ "8": {
+  "refused": 20,
+  "clean": 1,
+  "silent": 3,
+  "detect": 0.9583333333333334
+ },
+ "16": {
+  "refused": 23,
+  "clean": 0,
+  "silent": 1,
+  "detect": 1.0
+ },
+ "32": {
+  "refused": 24,
+  "clean": 0,
+  "silent": 0,
+  "detect": 1.0
+ },
+ "64": {
+  "refused": 24,
+  "clean": 0,
+  "silent": 0,
+  "detect": 1.0
+ },
+ "256": {
+  "refused": 24,
+  "clean": 0,
+  "silent": 0,
+  "detect": 1.0
+ },
+ "1024": {
+  "refused": 24,
+  "clean": 0,
+  "silent": 0,
+  "detect": 1.0
+ }
+}
