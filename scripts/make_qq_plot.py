@@ -75,7 +75,8 @@ def main():
     loader = DataLoader(ds, batch_size=4, shuffle=False, num_workers=2)
     errs = collect_errors(model, loader, device)
 
-    fig, axes = plt.subplots(1, 3, figsize=(12, 4), dpi=140)
+    plt.rcParams.update({"font.size": 8, "axes.labelsize": 8, "xtick.labelsize": 8, "ytick.labelsize": 8})
+    fig, axes = plt.subplots(1, 3, figsize=(6.28, 2.55), dpi=400)
     channels = ["E_R", "E_G", "E_B"]
     colors = ["tab:red", "tab:green", "tab:blue"]
     for ax, ch, col in zip(axes, channels, colors):
@@ -96,20 +97,20 @@ def main():
         ax.plot([lo, hi], [lo, hi], "k--", linewidth=1, alpha=0.7)
         # Shaded |e|<=8 region
         ax.axvspan(-8, 8, facecolor="0.88", edgecolor="0.55", linewidth=0.5, zorder=0, label=r"PEE-relevant $|e|\!\leq\!8$")
-        ax.set_title(f"{ch}  (n={n:,}, $\\mu$={mu:.2f}, $\\sigma$={sd:.2f})", fontsize=10)
-        ax.set_xlabel(r"Theoretical Gaussian quantiles")
+        ax.set_title(f"{ch}   n={n:,}\n$\\mu$={mu:.2f},  $\\sigma$={sd:.2f}", fontsize=8, linespacing=1.2)
+        ax.set_xlabel(r"Theoretical quantiles")
         ax.set_ylabel("Empirical quantiles")
         ax.grid(False)
         ax.set_facecolor("white")
         if ax is axes[0]:
-            ax.legend(loc="upper left", fontsize=9)
+            ax.legend(loc="upper left", fontsize=8, framealpha=1.0)
 
-    fig.suptitle(f"Q-Q plot: prediction errors vs. Gaussian  ({args.dataset.upper()}, QFormer-v5)", fontsize=12)
+    pass  # suptitle kaldirildi
     fig.tight_layout()
     out_path = ROOT / "paper" / "fig_qq"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path.with_suffix(".png"), dpi=140, bbox_inches="tight")
-    fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight")
+    fig.savefig(out_path.with_suffix(".png"), dpi=400, bbox_inches="tight", pad_inches=0.08)
+    fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight", pad_inches=0.08)
     print(f"Saved: {out_path}.pdf  and  .png")
     print(f"Stats (clipped to |e|<=30):")
     for ch in channels:

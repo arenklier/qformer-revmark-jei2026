@@ -101,10 +101,12 @@ def main():
     # Build a figure: for each image, three columns (orig | watermarked | 30*|diff|)
     # We do TWO rows per image: standard PEE (T=0) and no-shift T=0 at 5K bits.
     n_img = len(rgb_imgs)
-    fig, axes = plt.subplots(n_img, 6, figsize=(15, 2.5 * n_img), dpi=130)
+    plt.rcParams.update({"font.size": 8.5})
+    fig, axes = plt.subplots(n_img, 5, figsize=(6.28, 1.92 * n_img), dpi=360)
     if n_img == 1:
         axes = axes.reshape(1, -1)
 
+    torch.manual_seed(0)  # sabit payload cekilisi, yeniden uretilebilirlik
     # Configure standard PEE at T=0
     model_std.apee.log_T.data.fill_(-10.0)
 
@@ -131,33 +133,32 @@ def main():
 
         # Cells 0-2: standard PEE
         axes[row, 0].imshow(_to_uint8_np(img_uint8[0]))
-        axes[row, 0].set_title(f"{name}\noriginal", fontsize=8)
+        axes[row, 0].set_title(f"{name}\noriginal", fontsize=8.5, linespacing=1.15)
         axes[row, 1].imshow(_to_uint8_np(marked_std))
-        axes[row, 1].set_title(f"Std PEE  T=0\nPSNR {psnr_std:.1f} dB  SSIM {ssim_std:.3f}\n{n_bits_std:,} bits", fontsize=8)
+        axes[row, 1].set_title(f"Std PEE  T=0\nPSNR {psnr_std:.1f} dB\nSSIM {ssim_std:.3f}\n{n_bits_std:,} bits", fontsize=8.5, linespacing=1.15)
         amp_std = (diff_std * 30).clamp(0, 255)
         axes[row, 2].imshow(_to_uint8_np(amp_std.to(torch.int64)))
-        axes[row, 2].set_title("30x  |diff|  (Std PEE)", fontsize=8)
+        axes[row, 2].set_title("30x  |diff|\n(Std PEE)", fontsize=8.5, linespacing=1.15)
 
         # Cells 3-5: no-shift PEE
-        axes[row, 3].imshow(_to_uint8_np(img_uint8[0]))
-        axes[row, 3].set_title("original", fontsize=8)
-        axes[row, 4].imshow(_to_uint8_np(marked_ns))
-        axes[row, 4].set_title(f"No-shift  T=0\nPSNR {psnr_ns:.1f} dB  SSIM {ssim_ns:.3f}\n{er_ns.n_payload_bits:,} bits", fontsize=8)
+        # 4. sutun (yinelenen original) kaldirildi: 1. sutunla bayt-bayt ayniydi
+        axes[row, 3].imshow(_to_uint8_np(marked_ns))
+        axes[row, 3].set_title(f"No-shift  T=0\nPSNR {psnr_ns:.1f} dB\nSSIM {ssim_ns:.3f}\n{er_ns.n_payload_bits:,} bits", fontsize=8.5, linespacing=1.15)
         amp_ns = (diff_ns * 30).clamp(0, 255)
-        axes[row, 5].imshow(_to_uint8_np(amp_ns.to(torch.int64)))
-        axes[row, 5].set_title("30x  |diff|  (no-shift)", fontsize=8)
+        axes[row, 4].imshow(_to_uint8_np(amp_ns.to(torch.int64)))
+        axes[row, 4].set_title("30x  |diff|\n(no-shift)", fontsize=8.5, linespacing=1.15)
 
-        for c in range(6):
+        for c in range(5):
             axes[row, c].set_xticks([])
             axes[row, c].set_yticks([])
 
-    fig.suptitle("QFormer-RevMark sample visualisations  (standard vs no-shift PEE)", fontsize=11)
-    fig.tight_layout()
+    pass  # suptitle kaldirildi (SPIE)
+    plt.tight_layout(pad=0.8, h_pad=1.9, w_pad=0.35)
     out_dir = ROOT / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "fig_samples"
-    fig.savefig(out_path.with_suffix(".png"), dpi=130, bbox_inches="tight")
-    fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight")
+    fig.savefig(out_path.with_suffix(".png"), dpi=360, bbox_inches="tight", pad_inches=0.07)
+    fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight", pad_inches=0.07)
     print(f"Saved: {out_path}.png  and  .pdf")
 
 
